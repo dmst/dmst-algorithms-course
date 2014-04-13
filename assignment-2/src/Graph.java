@@ -45,6 +45,8 @@ class Edge {
 
 public class Graph {
 
+	static boolean nodirectional = false;
+	
 	public static void main(String[] args) {
 
 		// ALL: If -u option specified, graph is no-directional
@@ -58,7 +60,7 @@ public class Graph {
 		// Displays the diameter of the graph
 		// java Graph [-u] -d example_graph.txt
 
-		boolean nodirectional = false;
+		
 		String method = "";
 		String fileName = "";
 		String startNode = "";
@@ -212,6 +214,7 @@ public class Graph {
 		while ((record = br.readLine()) != null) {
 			String[] fields = record.split(" ");
 
+			
 			Node newNode = new Node();
 			newNode.start = fields[0];
 			newNode.end = fields[1];
@@ -224,6 +227,22 @@ public class Graph {
 			}
 
 			nodes.add(newNode);
+			
+			if(nodirectional) {
+				Node noDir = new Node();
+				
+				noDir.start = fields[1];
+				noDir.end = fields[0];
+				
+				// Node weight is optinal in file, so we need to check first
+				if (fields.length > 2) {
+					noDir.weight = Integer.parseInt(fields[2]);
+				} else {
+					noDir.weight = 1; // If no weight in file, defaults to 1
+				}
+				
+				nodes.add(noDir);
+			}
 
 		}
 
