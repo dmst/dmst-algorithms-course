@@ -155,9 +155,46 @@ public class Graph {
 	
 	private static void allPairs2(ArrayList<Vertex> graph) {
 				
-		for(Vertex v : graph) {
-			shortestPath(graph, v.name);
+//		for(Vertex v : graph) {
+//			shortestPath(graph, v.name);
+//		}
+		
+		
+		//Vertex startV = getVertex(graph, startNode);
+		
+		String resultPred = "Predecessor matrix\n";
+		String resultDist = "Distance matrix\n";
+		
+		for (Vertex v1 : graph) {
+			computePaths(v1);
+			
+			resultPred = resultPred + "[";
+			resultDist = resultDist + "[";
+			
+			for (Vertex v : graph)
+			{
+				//computePaths(v);
+				
+				if(v.previous==null) {
+			    	resultPred = resultPred + "-1, ";
+			    } else {
+			    	resultPred = resultPred + v.previous.name + ", ";
+			    }
+				
+			    resultDist = resultDist + v.minDistance + ", ";
+			    
+			    
+			}
+			
+			resultPred = resultPred.substring(0, resultPred.length()-2) + "]\n";
+			resultDist = resultDist.substring(0, resultDist.length()-2) + "]\n";
+		
 		}
+				
+		System.out.println(resultPred);
+		System.out.println(resultDist);
+
+		
 	}
 	
 	private static void allPairs(ArrayList<Vertex> graph) {
